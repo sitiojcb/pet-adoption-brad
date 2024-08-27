@@ -1,6 +1,7 @@
 const template = document.querySelector("#pet-card-template");
 const wrapper = document.createDocumentFragment();
 
+//----mostrar temperatura
 async function start() {
   const weatherPromise = await fetch(
     "https://api.weather.gov/gridpoints/MFL/110,50/forecast"
@@ -13,8 +14,8 @@ async function start() {
 }
 
 start();
-// pets area
-async function petsArea(params) {
+// ----------------------pets area
+async function petsArea() {
   const petsPromise = await fetch(
     "https://learnwebcode.github.io/bootcamp-pet-data/pets.json"
   );
@@ -22,6 +23,8 @@ async function petsArea(params) {
   //console.log(petsData);
   petsData.forEach((pet) => {
     const clone = template.content.cloneNode(true);
+    //agrega data-species al html para luego poder filtrar
+    clone.querySelector(".pet-card").dataset.species = pet.species;
     //el template tiene que ser dinamico
     clone.querySelector("h3").textContent = pet.name;
     clone.querySelector(".pet-description").textContent = pet.description;
@@ -65,4 +68,12 @@ function handleButtonClick(e) {
   //add active on click
   e.target.classList.add("active");
   //filter pets down bellow
+  const currentFilter = e.target.dataset.filter;
+  document.querySelectorAll(".pet-card").forEach((el) => {
+    if (currentFilter == el.dataset.species || currentFilter == "all") {
+      el.style.display = "grid";
+    } else {
+      el.style.display = "none";
+    }
+  });
 }
