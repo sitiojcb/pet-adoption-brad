@@ -144,6 +144,15 @@ body {
   font-family: "Source Sans 3", sans-serif;
   font-size: 1.15rem;
   color: #9f9f9f;
+  cursor: pointer;
+}
+.pet-filter button:hover {
+  color: #5a5a5a;
+}
+.pet-filter .active,
+.pet-filter .active:hover {
+  color: #475aff;
+  text-decoration: underline;
 }
 .site-footer {
   text-align: center;
